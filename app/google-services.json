@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "244718313755",
+    "project_id": "data-structures-22",
+    "storage_bucket": "data-structures-22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244718313755:android:c11b2ad304cb9b5f5673be",
+        "android_client_info": {
+          "package_name": "com.datastructures"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244718313755-b2ta38fbki3a428gl293s2iciiqtm4ig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.datastructures",
+            "certificate_hash": "5b02cca9b0fa13a9666baf67e02d7673b41768c5"
+          }
+        },
+        {
+          "client_id": "244718313755-64b0nbv97hrcva0ldda141i95ktcpc63.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1CAecxLmnFQqGiSbXdPxejxhJrPClKJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244718313755-64b0nbv97hrcva0ldda141i95ktcpc63.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
