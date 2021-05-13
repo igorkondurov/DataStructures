@@ -1,6 +1,36 @@
 <resources>
-    <string name="app_name">Data Structures</string>
-    <string name="user_auth_please">Войдите в учетную запись!</string>
+    <string name="app_name">Rodent</string>
+    <string name="user_auth_please">Для работы войдите в учетную запись</string>
     <string name="btn_sign_in">ВОЙТИ</string>
     <string name="btn_sign_up">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+    <string name="registration">Регистрация</string>
+    <string name="register">Заполните регистрационную форму</string>
+
+    <string name="study">ОБУЧЕНИЕ</string>
+    <string name="data_structures_in_systems_analytics">Учебный курс «Структуры данных в системной аналитике»‎</string>
+    <string name="go_to_data_structures">ПЕРЕЙТИ</string>
+    <string name="module_1_name">ПЕРЕЙТИ К МОДУЛЮ 1‎</string>
+    <string name="module_1_desc">«‎ВВЕДЕНИЕ»‎</string>
+    <string name="module_2_name">ПЕРЕЙТИ К МОДУЛЮ 2‎</string>
+    <string name="module_2_desc">«СПИСОК»‎</string>
+    <string name="module_3_name">ПЕРЕЙТИ К МОДУЛЮ 3‎</string>
+    <string name="module_3_desc">«СТЕК»‎</string>
+    <string name="module_4_name">ПЕРЕЙТИ К МОДУЛЮ 4‎</string>
+    <string name="module_4_desc">«ОЧЕРЕДЬ»‎</string>
+    <string name="module_5_name">ПЕРЕЙТИ К МОДУЛЮ 5‎</string>
+    <string name="module_5_desc">«ХЭШ-ТАБЛИЦА»‎</string>
+    <string name="module_6_name">ПЕРЕЙТИ К МОДУЛЮ 6‎</string>
+    <string name="module_6_desc">«МНОЖЕСТВА»‎</string>
+    <string name="module_7_name">ПЕРЕЙТИ К МОДУЛЮ 7‎</string>
+    <string name="module_7_desc">«ДЕРЕВЬЯ»‎</string>
+    <string name="module_8_name">ПЕРЕЙТИ К МОДУЛЮ 8‎</string>
+    <string name="module_8_desc">«ГРАФЫ»‎</string>
+    <string name="progress">ПРОГРЕСС</string>
+
+    <string name="settings">НАСТРОЙКИ</string>
+    <string name="about_app">О ПРИЛОЖЕНИИ</string>
+    <string name="go_out">ВЫЙТИ</string>
+
+    <string name="about_app_text">Здесь будет описание приложения</string>
+
 </resources>

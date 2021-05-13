@@ -23,7 +23,7 @@
             android:textColorHint="@color/cardview_dark_background"
             android:textSize="20sp"
             app:met_floatingLabel="highlight"
-            app:met_baseColor="@color/purple_500"
+            app:met_baseColor="@color/gray"
             app:met_primaryColor="@color/cardview_shadow_end_color"
             app:met_singleLineEllipsis="true"/>
 
@@ -38,7 +38,7 @@
             android:textColorHint="@color/cardview_dark_background"
             android:textSize="20sp"
             app:met_floatingLabel="highlight"
-            app:met_baseColor="@color/purple_500"
+            app:met_baseColor="@color/gray"
             app:met_primaryColor="@color/cardview_shadow_end_color"
             app:met_singleLineEllipsis="true"/>
 
@@ -53,7 +53,7 @@
             android:textColorHint="@color/cardview_dark_background"
             android:textSize="20sp"
             app:met_floatingLabel="highlight"
-            app:met_baseColor="@color/purple_500"
+            app:met_baseColor="@color/gray"
             app:met_primaryColor="@color/cardview_shadow_end_color"
             app:met_singleLineEllipsis="true"/>
 
@@ -68,7 +68,7 @@
             android:textColorHint="@color/cardview_dark_background"
             android:textSize="20sp"
             app:met_floatingLabel="highlight"
-            app:met_baseColor="@color/purple_500"
+            app:met_baseColor="@color/gray"
             app:met_primaryColor="@color/cardview_shadow_end_color"
             app:met_singleLineEllipsis="true"/>
     </LinearLayout>

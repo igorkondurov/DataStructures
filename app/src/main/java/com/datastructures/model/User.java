@@ -1,5 +1,7 @@
 package com.datastructures.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -8,14 +10,14 @@ import lombok.Data;
 @Data
 public class User {
     /**
-     * Почта
+     * id
      */
-    private String email;
-
+    private String id;
+    
     /**
-     * Пароль
+     * Телефон
      */
-    private String password;
+    private String phone;
 
     /**
      * Имя
@@ -23,7 +25,27 @@ public class User {
     private String name;
 
     /**
-     * Телефон
+     * Фамилия
      */
-    private String phone;
+    private String surname;
+
+    /**
+     * Дата рождения
+     */
+    private String dateOfBirth;
+
+    /**
+     * Пол
+     */
+    private String sexOfAPerson;
+
+    /**
+     * Сфера деятельности/ Категория
+     */
+    private String fieldOfActivity;
+
+    /**
+     * Интересы
+     */
+    private List<String> interests;
 }
