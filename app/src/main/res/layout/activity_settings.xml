@@ -55,6 +55,18 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btnNSEdit"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/android:transparent"
+                android:drawableLeft="@drawable/ic_baseline_drive_file_rename_outline_24"
+                android:text="имя фамилия"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+            
+            <Button
                 android:id="@+id/btnEmailEdit"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
@@ -62,6 +74,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/android:transparent"
                 android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
+                android:text="почта"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -73,7 +86,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/android:transparent"
                 android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
-                android:text="пароль"
+                android:text="изменить пароль"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -86,18 +99,6 @@
                 android:background="@color/android:transparent"
                 android:drawableLeft="@drawable/ic_baseline_phone_android_24"
                 android:text="телефон"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/btnNSEdit"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:background="@color/android:transparent"
-                android:drawableLeft="@drawable/ic_baseline_drive_file_rename_outline_24"
-                android:text="имя фамилия"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -145,9 +146,15 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/android:transparent"
                 android:drawableLeft="@drawable/ic_baseline_favorite_24"
-                android:text="интересы"
+                android:text="мои интересы"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
+
+            <ListView
+                android:id="@+id/listViewDataSettings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="visible" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

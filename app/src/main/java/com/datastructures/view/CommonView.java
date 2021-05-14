@@ -10,4 +10,6 @@ public interface CommonView {
     public View getViewForDialog(int resource);
 
     public void showSnackBarForDialog(String message, int length);
+
+    public void restartCurrentActivity();
 }

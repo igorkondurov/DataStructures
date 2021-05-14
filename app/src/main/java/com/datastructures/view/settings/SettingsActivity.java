@@ -8,12 +8,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.datastructures.R;
+import com.datastructures.model.User;
 import com.datastructures.presenter.settings.SettingsPresenter;
 import com.datastructures.presenter.settings.SettingsPresenterImpl;
+import com.datastructures.view.CallbackHelper;
 import com.datastructures.view.homepage.HomePageActivity;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.Map;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,18 +28,30 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        settingsPresenter = new SettingsPresenterImpl(this);
-        settingsPresenter.checkData();
-
-        Map<String, String> credentials = settingsPresenter.getValues();
-        Button btnBackToHomePage = findViewById(R.id.btnBackToHomePage);
-        Button btnEmailEdit = findViewById(R.id.btnEmailEdit);
-        btnEmailEdit.setText(credentials.get("email"));
-        Button btnPhoneEdit = findViewById(R.id.btnPhoneEdit);
-        btnPhoneEdit.setText(credentials.get("phone"));
-        Button btnPasswordEdit = findViewById(R.id.btnPasswordEdit);
-
         root = findViewById(R.id.root_element);
+        Button btnBackToHomePage = findViewById(R.id.btnBackToHomePage);
+        Button btnNSEdit = findViewById(R.id.btnNSEdit);
+        Button btnEmailEdit = findViewById(R.id.btnEmailEdit);
+        Button btnPhoneEdit = findViewById(R.id.btnPhoneEdit);
+        Button btnSexEdit = findViewById(R.id.btnSexEdit);
+        Button btnDateEdit = findViewById(R.id.btnDateEdit);
+        Button btnCategoryEdit = findViewById(R.id.btnCategoryEdit);
+        Button btnPasswordEdit = findViewById(R.id.btnPasswordEdit);
+        Button btnInterestsEdit = findViewById(R.id.btnInterestEdit);
+
+        settingsPresenter = new SettingsPresenterImpl(this);
+
+        settingsPresenter.getUserInfo(new CallbackHelper<User>() {
+            @Override
+            public void callback(User data) {
+                btnNSEdit.setText(new StringBuilder().append(data.getName()).append(" ").append(data.getSurname()));
+                btnEmailEdit.setText(data.getEmail());
+                btnPhoneEdit.setText(data.getPhone());
+                btnSexEdit.setText(data.getSexOfAPerson());
+                btnDateEdit.setText(data.getDateOfBirth());
+                btnCategoryEdit.setText(data.getFieldOfActivity());
+            }
+        });
 
         btnBackToHomePage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,12 +60,13 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
             }
         });
 
-        btnEmailEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                settingsPresenter.showEditEmailWindow();
-            }
-        });
+//        @deprecated Неактуальный функционал
+//        btnEmailEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                settingsPresenter.showEditEmailWindow();
+//            }
+//        });
 
         btnPasswordEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +75,56 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
             }
         });
 
+        btnPhoneEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingsPresenter.showEditPhoneWindow();
+            }
+        });
+
+        btnNSEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingsPresenter.showEditNamesWindow();
+            }
+        });
+
+        btnSexEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingsPresenter.showEditSexOfAPersonWindow();
+            }
+        });
+
+        btnDateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingsPresenter.showEditDateOfBirthdayWindow();
+            }
+        });
+
+        btnCategoryEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingsPresenter.showEditCategoryWindow();
+            }
+        });
+
+        btnInterestsEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingsPresenter.showEditInterestsWindow();
+            }
+        });
+
+    }
+
+    @Override
+    public void restartCurrentActivity() {
+        Intent intent = new Intent();
+        intent.setClass(this, this.getClass());
+        this.startActivity(intent);
+        this.finish();
     }
 
     @Override

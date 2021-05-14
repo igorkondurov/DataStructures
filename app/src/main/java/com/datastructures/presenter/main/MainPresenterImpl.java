@@ -5,16 +5,21 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.datastructures.R;
+import com.datastructures.model.User;
 import com.datastructures.view.main.MainView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +37,7 @@ public class MainPresenterImpl implements MainPresenter {
         this.mainView = mainView;
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        users = database.getReference("users");
+        users = database.getReference("Users");
         LOGGER = Logger.getLogger(MainPresenterImpl.class.getName());
     }
 
@@ -45,6 +50,7 @@ public class MainPresenterImpl implements MainPresenter {
         MaterialEditText email = registerWindow.findViewById(R.id.emailField);
         MaterialEditText password = registerWindow.findViewById(R.id.passwordField);
         MaterialEditText name = registerWindow.findViewById(R.id.nameField);
+        MaterialEditText surname = registerWindow.findViewById(R.id.surnameField);
         MaterialEditText phone = registerWindow.findViewById(R.id.phoneField);
 
         dialog.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
@@ -61,7 +67,8 @@ public class MainPresenterImpl implements MainPresenter {
                     return;
                 }
 
-                createUser(email, password, name, phone);
+                createUser(email.getText().toString().trim(), password.getText().toString().trim(),
+                        name.getText().toString().trim(), surname.getText().toString().trim(), phone.getText().toString().trim());
             }
         });
 
@@ -124,8 +131,8 @@ public class MainPresenterImpl implements MainPresenter {
         return true;
     }
 
-    private void createUser(MaterialEditText email, MaterialEditText password, MaterialEditText name, MaterialEditText phone) {
-        firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+    private void createUser(String email, String password, String name, String surname, String phone) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
@@ -135,11 +142,43 @@ public class MainPresenterImpl implements MainPresenter {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        LOGGER.log(Level.WARNING, "Пользователь с именем " + name.getText().toString()
-                                + " и почтой " + email.getText().toString() + " не был зарегистрирован! Ошибка: " + e.getMessage());
+                        LOGGER.log(Level.WARNING, "Пользователь с именем " + name
+                                + " и почтой " + email + " не был зарегистрирован! Ошибка: " + e.getMessage());
                         mainView.showSnackBarForDialog("Ошибка при регистрации: " + e.getMessage(), Snackbar.LENGTH_LONG);
                     }
                 });
+
+        User user = setDefaultDataForUser(email, name, surname, phone);
+        addUserInfo(user);
+    }
+
+    private void addUserInfo(User user) {
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).setValue(user);
+                LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " был добавлен в базу!");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private User setDefaultDataForUser(String email, String name, String surname, String phone) {
+        return new User() {{
+            setId(users.getKey());
+            setEmail(email);
+            setPhone(phone);
+            setName(name);
+            setSurname(surname);
+            setDateOfBirth("Не указано");
+            setSexOfAPerson("Не указано");
+            setFieldOfActivity("Не указано");
+            setInterests(Collections.singletonList("Не указано"));
+        }};
     }
 
     private void loginUser(MaterialEditText email, MaterialEditText password) {

@@ -13,7 +13,12 @@ public class User {
      * id
      */
     private String id;
-    
+
+    /**
+     * Адрес электронной почты
+     */
+    private String email;
+
     /**
      * Телефон
      */

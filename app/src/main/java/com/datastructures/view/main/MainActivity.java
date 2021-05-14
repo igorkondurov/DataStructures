@@ -48,6 +48,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
+    public void restartCurrentActivity() {
+        Intent intent = new Intent();
+        intent.setClass(this, this.getClass());
+        this.startActivity(intent);
+        this.finish();
+    }
+
+    @Override
     public AlertDialog.Builder getAlertDialog(String title, String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title);

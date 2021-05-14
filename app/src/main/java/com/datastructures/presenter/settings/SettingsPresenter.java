@@ -1,15 +1,26 @@
 package com.datastructures.presenter.settings;
 
-import java.util.Map;
+import com.datastructures.model.User;
+import com.datastructures.view.CallbackHelper;
+
+import androidx.annotation.NonNull;
 
 public interface SettingsPresenter {
-    public Map<String, String> getValues();
-
     public void showEditEmailWindow();
 
     public void showEditPasswordWindow();
 
     public void showEditPhoneWindow();
 
-    public void checkData();
+    public void showEditNamesWindow();
+
+    public void showEditSexOfAPersonWindow();
+
+    public void showEditDateOfBirthdayWindow();
+
+    public void showEditCategoryWindow();
+
+    public void showEditInterestsWindow();
+
+    public void getUserInfo(@NonNull CallbackHelper<User> finishedCallback);
 }

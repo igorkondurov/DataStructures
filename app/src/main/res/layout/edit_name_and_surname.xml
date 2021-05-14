@@ -13,12 +13,11 @@
         android:orientation="vertical">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/oldPhoneForEdit"
+            android:id="@+id/nameForNSEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Старый номер телефона"
-            android:inputType="phone"
-            android:text=""
+            android:inputType="textPersonName"
+            android:hint="Имя"
             android:textColor="@color/cardview_light_background"
             android:textColorHint="@color/cardview_dark_background"
             android:textSize="20sp"
@@ -28,27 +27,11 @@
             app:met_singleLineEllipsis="true" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/newPhoneForEdit"
+            android:id="@+id/surnameForNSEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Новый номер телефона"
-            android:inputType="phone"
-            android:text=""
-            android:textColor="@color/cardview_light_background"
-            android:textColorHint="@color/cardview_dark_background"
-            android:textSize="20sp"
-            app:met_baseColor="@color/gray"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="@color/cardview_shadow_end_color"
-            app:met_singleLineEllipsis="true" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/passwordForEditPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Пароль"
-            android:inputType="textPassword"
-            android:text=""
+            android:inputType="textPersonName"
+            android:hint="Фамилия"
             android:textColor="@color/cardview_light_background"
             android:textColorHint="@color/cardview_dark_background"
             android:textSize="20sp"

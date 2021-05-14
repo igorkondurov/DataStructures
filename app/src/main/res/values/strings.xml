@@ -33,4 +33,31 @@
 
     <string name="about_app_text">Здесь будет описание приложения</string>
 
+    <string-array name="categories">
+        <item>Бизнес-аналитика</item>
+        <item>Системная аналитика</item>
+        <item>Архитектура</item>
+        <item>UI/UX</item>
+        <item>Data Science</item>
+        <item>Программирование</item>
+        <item>Автотестирование</item>
+        <item>Тестирование</item>
+        <item>Внедрение</item>
+    </string-array>
+
+    <string-array name="interests">
+        <item>Java</item>
+        <item>C#</item>
+        <item>C++</item>
+        <item>Assembler</item>
+        <item>Python</item>
+        <item>Системный анализ</item>
+        <item>Проектирование</item>
+        <item>Аналитика</item>
+        <item>Дизайн</item>
+        <item>Пользователь</item>
+        <item>Тест-дизайн</item>
+        <item>Автотест</item>
+        <item>Agile</item>
+    </string-array>
 </resources>
