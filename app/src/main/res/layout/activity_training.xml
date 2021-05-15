@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_element"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".view.training.TrainingActivity">
+
+    <Button
+        android:id="@+id/btnBackToHomePage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp"
+        android:background="@color/android:transparent"
+        android:drawableLeft="@drawable/ic_baseline_keyboard_backspace_24"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/layout_label_my_courses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="25dp"
+            android:gravity="center_vertical"
+            android:text="@string/my_courses"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_label_my_courses"
+        android:layout_margin="30dp"
+        android:background="@color/gray"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:drawableLeft="@drawable/ic_baseline_account_tree_24"
+            android:gravity="center_vertical"
+            android:text="@string/data_structures_in_systems_analytics"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnToDataStructuresCourse"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/go_to_button"
+            android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:text="@string/go_to_study"
+            android:textColor="@color/white"
+            android:textSize="16dp">
+        </androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+</RelativeLayout>

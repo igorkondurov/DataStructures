@@ -25,20 +25,26 @@ public class HomePagePresenterImpl implements HomePagePresenter {
 
     @Override
     public void toExitTheApp() {
-        LOGGER.log(Level.WARNING, "Пользователь " + firebaseAuth.getCurrentUser().getEmail() + " вышел из приложения!");
+        LOGGER.log(Level.INFO, "Пользователь " + firebaseAuth.getCurrentUser().getEmail() + " вышел из приложения!");
         firebaseAuth.signOut();
         homePageView.transferToMainPage();
     }
 
     @Override
     public void toAboutApp() {
-        LOGGER.log(Level.WARNING, "Пользователь " + firebaseAuth.getCurrentUser().getEmail() + " перешёл в раздел \"О приложении\"!");
+        LOGGER.log(Level.INFO, "Пользователь " + firebaseAuth.getCurrentUser().getEmail() + " перешёл в раздел \"О приложении\"!");
         homePageView.transferToAboutAppPage();
     }
 
     @Override
     public void toSettings() {
-        LOGGER.log(Level.WARNING, "Пользователь " + firebaseAuth.getCurrentUser().getEmail() + " перешёл в раздел \"Настройки\"!");
+        LOGGER.log(Level.INFO, "Пользователь " + firebaseAuth.getCurrentUser().getEmail() + " перешёл в раздел \"Настройки\"!");
         homePageView.transferToSettings();
+    }
+
+    @Override
+    public void toStudy() {
+        LOGGER.log(Level.INFO, "Пользователь " + firebaseAuth.getCurrentUser().getEmail() + " перешёл в раздел \"Обучение\"!");
+        homePageView.transferToStudy();
     }
 }

@@ -7,24 +7,19 @@
     <string name="register">Заполните регистрационную форму</string>
 
     <string name="study">ОБУЧЕНИЕ</string>
-    <string name="data_structures_in_systems_analytics">Учебный курс «Структуры данных в системной аналитике»‎</string>
-    <string name="go_to_data_structures">ПЕРЕЙТИ</string>
-    <string name="module_1_name">ПЕРЕЙТИ К МОДУЛЮ 1‎</string>
-    <string name="module_1_desc">«‎ВВЕДЕНИЕ»‎</string>
-    <string name="module_2_name">ПЕРЕЙТИ К МОДУЛЮ 2‎</string>
-    <string name="module_2_desc">«СПИСОК»‎</string>
-    <string name="module_3_name">ПЕРЕЙТИ К МОДУЛЮ 3‎</string>
-    <string name="module_3_desc">«СТЕК»‎</string>
-    <string name="module_4_name">ПЕРЕЙТИ К МОДУЛЮ 4‎</string>
-    <string name="module_4_desc">«ОЧЕРЕДЬ»‎</string>
-    <string name="module_5_name">ПЕРЕЙТИ К МОДУЛЮ 5‎</string>
-    <string name="module_5_desc">«ХЭШ-ТАБЛИЦА»‎</string>
-    <string name="module_6_name">ПЕРЕЙТИ К МОДУЛЮ 6‎</string>
-    <string name="module_6_desc">«МНОЖЕСТВА»‎</string>
-    <string name="module_7_name">ПЕРЕЙТИ К МОДУЛЮ 7‎</string>
-    <string name="module_7_desc">«ДЕРЕВЬЯ»‎</string>
-    <string name="module_8_name">ПЕРЕЙТИ К МОДУЛЮ 8‎</string>
-    <string name="module_8_desc">«ГРАФЫ»‎</string>
+    <string name="my_courses">Мои курсы</string>
+    <string name="data_structures_in_systems_analytics">Структуры данных в системной аналитике</string>
+    <string name="data_structures_aphorism">«Лучше, чтобы в 100 функциях использовалась одна структура данных, чем в 10 функциях – 10 структур»‎. (с) Алан Перлис (1922–1990)</string>
+    <string name="go_to_study">Перейти к обучению</string>
+    <string name="go_to_study_module">Перейти к прохождению</string>
+    <string name="module_1_name">МОДУЛЬ 1 «‎ВВЕДЕНИЕ»‎</string>
+    <string name="module_2_name">МОДУЛЬ 2 «СПИСОК»‎</string>
+    <string name="module_3_name">МОДУЛЬ 3 «СТЕК»‎</string>
+    <string name="module_4_name">МОДУЛЬ 4 «ОЧЕРЕДЬ»‎</string>
+    <string name="module_5_name">МОДУЛЬ 5 «ХЭШ-ТАБЛИЦА»‎</string>
+    <string name="module_6_name">МОДУЛЬ 6 «МНОЖЕСТВА»‎</string>
+    <string name="module_7_name">МОДУЛЬ 7 «ДЕРЕВЬЯ»‎</string>
+    <string name="module_8_name">МОДУЛЬ 8 «ГРАФЫ»‎</string>
     <string name="progress">ПРОГРЕСС</string>
 
     <string name="settings">НАСТРОЙКИ</string>

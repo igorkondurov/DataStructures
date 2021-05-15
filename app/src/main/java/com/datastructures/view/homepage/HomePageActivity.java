@@ -12,6 +12,7 @@ import com.datastructures.presenter.homepage.HomePagePresenterImpl;
 import com.datastructures.view.aboutapp.AboutAppActivity;
 import com.datastructures.view.main.MainActivity;
 import com.datastructures.view.settings.SettingsActivity;
+import com.datastructures.view.training.TrainingActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +29,7 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
         Button btnGoOut = findViewById(R.id.btnGoOut);
         Button btnToAboutApp = findViewById(R.id.btnAboutApp);
         Button btnToSettings = findViewById(R.id.btnSettings);
+        Button btnToStudy = findViewById(R.id.btnStudy);
         root = findViewById(R.id.root_element);
 
         homePagePresenter = new HomePagePresenterImpl(this);
@@ -52,6 +54,13 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
                 homePagePresenter.toSettings();
             }
         });
+
+        btnToStudy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homePagePresenter.toStudy();
+            }
+        });
     }
 
     @Override
@@ -69,6 +78,12 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView 
     @Override
     public void transferToSettings() {
         startActivity(new Intent(HomePageActivity.this, SettingsActivity.class));
+        finish();
+    }
+
+    @Override
+    public void transferToStudy() {
+        startActivity(new Intent(HomePageActivity.this, TrainingActivity.class));
         finish();
     }
 }

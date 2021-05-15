@@ -6,4 +6,6 @@ public interface HomePagePresenter {
     public void toAboutApp();
 
     public void toSettings();
+
+    public void toStudy();
 }

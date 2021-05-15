@@ -6,4 +6,6 @@ public interface HomePageView {
     public void transferToAboutAppPage();
 
     public void transferToSettings();
+
+    public void transferToStudy();
 }

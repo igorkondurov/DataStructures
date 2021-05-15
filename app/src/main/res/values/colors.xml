@@ -10,4 +10,9 @@
     <color name="gray">#292828</color>
     <color name="grayDark">#413F3F</color>
     <color name="gainsboro">#DCDCDC</color>
+    <color name="green_lime">#00FF00</color>
+    <color name="green_lime_dark">#008000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="veryDarkGray">#696969</color>
+    <color name="name_module">#800000</color>
 </resources>

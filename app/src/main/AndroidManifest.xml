@@ -12,6 +12,8 @@
         <activity android:name=".view.homepage.HomePageActivity"></activity>
         <activity android:name=".view.aboutapp.AboutAppActivity"></activity>
         <activity android:name=".view.settings.SettingsActivity"></activity>
+        <activity android:name=".view.training.TrainingActivity"></activity>
+        <activity android:name=".view.courses.ds_in_sa.CourseDSInSAActivity"></activity>
         <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
