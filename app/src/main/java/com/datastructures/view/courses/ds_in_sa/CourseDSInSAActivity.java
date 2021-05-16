@@ -2,16 +2,21 @@ package com.datastructures.view.courses.ds_in_sa;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.datastructures.R;
+import com.datastructures.model.enums.dsinsa.DSInSAModule;
 import com.datastructures.presenter.courses.ds_in_sa.CourseDSInSAPresenter;
 import com.datastructures.presenter.courses.ds_in_sa.CourseDSInSAPresenterImpl;
 import com.datastructures.view.training.TrainingActivity;
+import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 public class CourseDSInSAActivity extends AppCompatActivity implements CourseDSInSAView {
 
@@ -28,6 +33,14 @@ public class CourseDSInSAActivity extends AppCompatActivity implements CourseDSI
         courseDSInSAPresenter = new CourseDSInSAPresenterImpl(this);
 
         Button btnBackToHomePage = findViewById(R.id.btnBackToHomePage);
+        AppCompatButton btnModule1 = findViewById(R.id.btnModule1);
+        AppCompatButton btnModule2 = findViewById(R.id.btnModule2);
+        AppCompatButton btnModule3 = findViewById(R.id.btnModule3);
+        AppCompatButton btnModule4 = findViewById(R.id.btnModule4);
+        AppCompatButton btnModule5 = findViewById(R.id.btnModule5);
+        AppCompatButton btnModule6 = findViewById(R.id.btnModule6);
+        AppCompatButton btnModule7 = findViewById(R.id.btnModule7);
+        AppCompatButton btnModule8 = findViewById(R.id.btnModule8);
 
         btnBackToHomePage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +48,90 @@ public class CourseDSInSAActivity extends AppCompatActivity implements CourseDSI
                 transferToHomePage();
             }
         });
+
+        btnModule1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_1);
+            }
+        });
+
+        btnModule2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_2);
+            }
+        });
+
+        btnModule3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_3);
+            }
+        });
+
+        btnModule4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_4);
+            }
+        });
+
+        btnModule5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_5);
+            }
+        });
+
+        btnModule6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_6);
+            }
+        });
+
+        btnModule7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_7);
+            }
+        });
+
+        btnModule8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_8);
+            }
+        });
+    }
+
+    @Override
+    public void restartCurrentActivity() {
+        Intent intent = new Intent();
+        intent.setClass(this, this.getClass());
+        this.startActivity(intent);
+        this.finish();
+    }
+
+    @Override
+    public AlertDialog.Builder getAlertDialog(String title, String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+
+        return dialog;
+    }
+
+    @Override
+    public View getViewForDialog(int resource) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        return inflater.inflate(resource, null);
+    }
+
+    @Override
+    public void showSnackBarForDialog(String message, int length) {
+        Snackbar.make(root, message, length).show();
     }
 
     private void transferToHomePage() {
