@@ -11,10 +11,19 @@ import lombok.NonNull;
  */
 @Data
 public class TrainingCourse {
+    /**
+     * Разделы/ модули
+     */
     @NonNull
-    private String section;
+    private List<TrainingModule> modules;
 
+    /**
+     * Флаги доступности модулей
+     */
     private List<Boolean> signsOfPassingModules = new ArrayList<>();
 
+    /**
+     * Статистика прохождения
+     */
     private CourseStatistics courseStatistics;
 }

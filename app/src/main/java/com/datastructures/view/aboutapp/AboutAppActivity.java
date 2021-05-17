@@ -11,6 +11,9 @@ import com.datastructures.view.homepage.HomePageActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Активность для получнния актуальной информации пользователем о приложении
+ */
 public class AboutAppActivity extends AppCompatActivity {
 
     private RelativeLayout root;

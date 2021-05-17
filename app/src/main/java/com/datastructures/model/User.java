@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class User {
     /**
-     * id
+     * id документа
      */
     private String id;
 
@@ -45,12 +45,12 @@ public class User {
     private String sexOfAPerson;
 
     /**
-     * Сфера деятельности/ Категория
+     * Сфера профессиональной деятельности/ категория
      */
     private String fieldOfActivity;
 
     /**
-     * Интересы
+     * Пользовательские нтересы
      */
     private List<String> interests;
 }

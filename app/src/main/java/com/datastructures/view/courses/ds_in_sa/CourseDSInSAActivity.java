@@ -20,6 +20,8 @@ import androidx.appcompat.widget.AppCompatButton;
 
 public class CourseDSInSAActivity extends AppCompatActivity implements CourseDSInSAView {
 
+    private static final String MODULE = "МОДУЛЬ";
+    private static final String TEST_MODULE = "ТЕСТИРОВАНИЕ ПО МОДУЛЮ";
     private RelativeLayout root;
     private CourseDSInSAPresenter courseDSInSAPresenter;
 
@@ -52,56 +54,56 @@ public class CourseDSInSAActivity extends AppCompatActivity implements CourseDSI
         btnModule1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_1);
+                toModule(DSInSAModule.MODULE_1);
             }
         });
 
         btnModule2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_2);
+                toModule(DSInSAModule.MODULE_2);
             }
         });
 
         btnModule3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_3);
+                toModule(DSInSAModule.MODULE_3);
             }
         });
 
         btnModule4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_4);
+                toModule(DSInSAModule.MODULE_4);
             }
         });
 
         btnModule5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_5);
+                toModule(DSInSAModule.MODULE_5);
             }
         });
 
         btnModule6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_6);
+                toModule(DSInSAModule.MODULE_6);
             }
         });
 
         btnModule7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_7);
+                toModule(DSInSAModule.MODULE_7);
             }
         });
 
         btnModule8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                courseDSInSAPresenter.toModule(DSInSAModule.MODULE_8);
+                toModule(DSInSAModule.MODULE_8);
             }
         });
     }
@@ -137,5 +139,58 @@ public class CourseDSInSAActivity extends AppCompatActivity implements CourseDSI
     private void transferToHomePage() {
         startActivity(new Intent(CourseDSInSAActivity.this, TrainingActivity.class));
         finish();
+    }
+
+    private void toModule(DSInSAModule module) {
+        AlertDialog.Builder dialogHomePage = getAlertDialog(MODULE + " " + module.getOrder(),
+                module.getName());
+        View registerWindow = getViewForDialog(R.layout.dsinsa_template_module);
+        dialogHomePage.setView(registerWindow);
+
+        Button btnClose = registerWindow.findViewById(R.id.btnClose);
+        Button btnGoToTest = registerWindow.findViewById(R.id.btnGoToTest);
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restartCurrentActivity();
+            }
+        });
+
+        btnGoToTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToModuleTest(module);
+            }
+        });
+
+        dialogHomePage.show();
+    }
+
+    private void goToModuleTest(DSInSAModule module) {
+        AlertDialog.Builder dialogTestPage = getAlertDialog(TEST_MODULE + " "
+                        + module.getOrder() + "«" + module.getName() + "»",
+                "Выберите один правильный вариант ответа в каждом задании и в конце нажмите кнопку \"Перейти к проверке\"");
+        View registerWindow = getViewForDialog(R.layout.dsinsa_template_module_test);
+        dialogTestPage.setView(registerWindow);
+
+        Button btnCloseTest = registerWindow.findViewById(R.id.btnCloseTest);
+        Button btnGoToResult = registerWindow.findViewById(R.id.btnGoToResultTest);
+
+        btnCloseTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restartCurrentActivity();
+            }
+        });
+
+        btnGoToResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restartCurrentActivity();
+            }
+        });
+
+        dialogTestPage.show();
     }
 }

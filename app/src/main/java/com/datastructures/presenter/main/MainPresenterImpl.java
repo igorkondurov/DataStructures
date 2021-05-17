@@ -1,10 +1,7 @@
 package com.datastructures.presenter.main;
 
-import android.content.DialogInterface;
 import android.text.TextUtils;
-import android.view.View;
 
-import com.datastructures.R;
 import com.datastructures.model.User;
 import com.datastructures.view.main.MainView;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,14 +14,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 public class MainPresenterImpl implements MainPresenter {
     private final MainView mainView;
@@ -42,88 +37,20 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void showSignUpWindow() {
-        AlertDialog.Builder dialog = mainView.getAlertDialog("Регистрация", "Заполните регистрационную форму!");
-        View registerWindow = mainView.getViewForDialog(R.layout.register_window);
-        dialog.setView(registerWindow);
-
-        MaterialEditText email = registerWindow.findViewById(R.id.emailField);
-        MaterialEditText password = registerWindow.findViewById(R.id.passwordField);
-        MaterialEditText name = registerWindow.findViewById(R.id.nameField);
-        MaterialEditText surname = registerWindow.findViewById(R.id.surnameField);
-        MaterialEditText phone = registerWindow.findViewById(R.id.phoneField);
-
-        dialog.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        dialog.setPositiveButton("Зарегистрироваться", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (!checkFields(email, password, name, phone)) {
-                    return;
-                }
-
-                createUser(email.getText().toString().trim(), password.getText().toString().trim(),
-                        name.getText().toString().trim(), surname.getText().toString().trim(), phone.getText().toString().trim());
-            }
-        });
-
-        dialog.show();
-    }
-
-    @Override
-    public void showSignInWindow() {
-        AlertDialog.Builder dialog = mainView.getAlertDialog("Войти", "Введите данные для авторизации");
-        View loginWindow = mainView.getViewForDialog(R.layout.login_window);
-        dialog.setView(loginWindow);
-
-        MaterialEditText email = loginWindow.findViewById(R.id.emailField);
-        MaterialEditText password = loginWindow.findViewById(R.id.passwordField);
-
-        dialog.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        dialog.setPositiveButton("Войти", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (TextUtils.isEmpty(email.getText().toString())) {
-                    mainView.showSnackBarForDialog("Введите адрес электронной почты!", Snackbar.LENGTH_LONG);
-                    return;
-                }
-                if (password.getText().toString().length() < 7) {
-                    mainView.showSnackBarForDialog("Введите пароль, содержащий более 7 символов!", Snackbar.LENGTH_LONG);
-                    return;
-                }
-
-                loginUser(email, password);
-            }
-        });
-
-        dialog.show();
-    }
-
-    private boolean checkFields(MaterialEditText email, MaterialEditText password, MaterialEditText name, MaterialEditText phone) {
-        if (TextUtils.isEmpty(email.getText().toString())) {
+    public boolean checkFields(String email, String password, String name, String phone) {
+        if (TextUtils.isEmpty(email)) {
             mainView.showSnackBarForDialog("Введите адрес электронной почты!", Snackbar.LENGTH_LONG);
             return false;
         }
-        if (password.getText().toString().length() < 7) {
+        if (password.length() < 7) {
             mainView.showSnackBarForDialog("Введите пароль, содержащий более 7 символов!", Snackbar.LENGTH_LONG);
             return false;
         }
-        if (TextUtils.isEmpty(name.getText().toString())) {
+        if (TextUtils.isEmpty(name)) {
             mainView.showSnackBarForDialog("Введите имя!", Snackbar.LENGTH_LONG);
             return false;
         }
-        if (TextUtils.isEmpty(phone.getText().toString())) {
+        if (TextUtils.isEmpty(phone)) {
             mainView.showSnackBarForDialog("Введите номер телефона!", Snackbar.LENGTH_LONG);
             return false;
         }
@@ -131,7 +58,8 @@ public class MainPresenterImpl implements MainPresenter {
         return true;
     }
 
-    private void createUser(String email, String password, String name, String surname, String phone) {
+    @Override
+    public void createUser(String email, String password, String name, String surname, String phone) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -152,22 +80,42 @@ public class MainPresenterImpl implements MainPresenter {
         addUserInfo(user);
     }
 
+    @Override
+    public void loginUser(String email, String password) {
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        LOGGER.log(Level.WARNING, "Пользователь " + email + " успешно прошёл аутентификацию!");
+                        mainView.transferToHomePage();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        LOGGER.log(Level.WARNING, "Пользователь " + email
+                                + " не прошёл аутентификацию! Ошибка: " + e.getMessage());
+                        mainView.showSnackBarForDialog("Ошибка авторизации: " + e.getMessage(), Snackbar.LENGTH_LONG);
+                    }
+                });
+    }
+
     private void addUserInfo(User user) {
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).setValue(user);
+                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).setValue(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""), user);
                 LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " был добавлен в базу!");
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
 
     private User setDefaultDataForUser(String email, String name, String surname, String phone) {
+        LOGGER.log(Level.INFO, "В коллекцию \"Users\" Firebase был добавлен документ пользователя " + email + " с дефолтными значениями!");
         return new User() {{
             setId(users.getKey());
             setEmail(email);
@@ -179,24 +127,5 @@ public class MainPresenterImpl implements MainPresenter {
             setFieldOfActivity("Не указано");
             setInterests(Collections.singletonList("Не указано"));
         }};
-    }
-
-    private void loginUser(MaterialEditText email, MaterialEditText password) {
-        firebaseAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        LOGGER.log(Level.WARNING, "Пользователь " + email.getText().toString() + " успешно прошёл аутентификацию!");
-                        mainView.transferToHomePage();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        LOGGER.log(Level.WARNING, "Пользователь " + email.getText().toString()
-                                + " не прошёл аутентификацию! Ошибка: " + e.getMessage());
-                        mainView.showSnackBarForDialog("Ошибка авторизации: " + e.getMessage(), Snackbar.LENGTH_LONG);
-                    }
-                });
     }
 }

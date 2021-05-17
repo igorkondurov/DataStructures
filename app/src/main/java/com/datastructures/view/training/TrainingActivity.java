@@ -14,6 +14,9 @@ import com.datastructures.view.homepage.HomePageActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Активность для работы с учебными курсами приложения
+ */
 public class TrainingActivity extends AppCompatActivity implements TrainingView {
 
     private RelativeLayout root;

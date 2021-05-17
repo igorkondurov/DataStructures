@@ -16,6 +16,9 @@ import com.datastructures.view.training.TrainingActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Активность для работы пользователя на главной странице приложения
+ */
 public class HomePageActivity extends AppCompatActivity implements HomePageView {
 
     private RelativeLayout root;
