@@ -263,6 +263,7 @@ public class SettingsPresenterImpl implements SettingsPresenter {
                                     .child("phone").setValue(newPhone);
                             LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " изменил свой номер телефона на новый: " + newPhone);
                             settingsView.showSnackBarForDialog("Номер телефона успешно обновлен!", Snackbar.LENGTH_LONG);
+                            settingsView.restartCurrentActivity();
                         } else {
                             LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " ввёл некорректные данные!");
                             settingsView.showSnackBarForDialog("Введенные пользовательские данные некорректны!", Snackbar.LENGTH_LONG);

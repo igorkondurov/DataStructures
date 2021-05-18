@@ -9,17 +9,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class MainPresenterImpl implements MainPresenter {
     private final MainView mainView;
@@ -101,15 +102,31 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     private void addUserInfo(User user) {
-        users.addValueEventListener(new ValueEventListener() {
+        users.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).setValue(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""), user);
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).setValue(user);
                 LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " был добавлен в базу!");
             }
 
             @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

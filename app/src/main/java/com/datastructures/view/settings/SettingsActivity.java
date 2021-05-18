@@ -226,7 +226,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
                 }
 
                 settingsPresenter.editPhone(password.getText().toString(), oldPhone.getText().toString(), newPhone.getText().toString(), data);
-                restartCurrentActivity();
             }
         });
 
