@@ -2,7 +2,12 @@ package com.datastructures.presenter.main;
 
 import android.text.TextUtils;
 
+import com.datastructures.model.CourseStatistics;
+import com.datastructures.model.ModuleStatistics;
+import com.datastructures.model.TestOfModule;
 import com.datastructures.model.User;
+import com.datastructures.model.enums.SectionOfTrainingCatalog;
+import com.datastructures.model.enums.dsinsa.DSInSAModuleTerm;
 import com.datastructures.view.main.MainView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,7 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,7 +86,8 @@ public class MainPresenterImpl implements MainPresenter {
                 });
 
         User user = setDefaultDataForUser(email, name, surname, phone);
-        addUserInfo(user);
+        CourseStatistics courseStatistics = setDefaultDataForCourseStatisticsUser(user);
+        addUserInfo(user, courseStatistics);
     }
 
     @Override
@@ -101,11 +110,12 @@ public class MainPresenterImpl implements MainPresenter {
                 });
     }
 
-    private void addUserInfo(User user) {
+    private void addUserInfo(User user, CourseStatistics courseStatistics) {
         users.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).setValue(user);
+                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User").setValue(user);
+                users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("CourseStatistics").child(courseStatistics.getId()).setValue(courseStatistics);
                 LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " был добавлен в базу!");
             }
 
@@ -144,5 +154,45 @@ public class MainPresenterImpl implements MainPresenter {
             setFieldOfActivity("Не указано");
             setInterests(Collections.singletonList("Не указано"));
         }};
+    }
+
+    private CourseStatistics setDefaultDataForCourseStatisticsUser(User user) {
+        LOGGER.log(Level.INFO, "В коллекцию \"CourseStatistics\" Firebase был добавлен документ для пользователя " + user.getEmail() + " с дефолтными значениями!");
+        return new CourseStatistics() {{
+            setId(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")
+                    + "_" + SectionOfTrainingCatalog.DATA_STRUCTURES_IN_SYSTEM_ANALYTICS.toString());
+            setModuleProgress(getDefaultModuleProgress());
+            setModuleStatistics(getDefaultModuleStatistics());
+        }};
+    }
+
+    private Map<String, Boolean> getDefaultModuleProgress() {
+        HashMap<String, Boolean> moduleStatistics = new HashMap<>();
+
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_1.toString(), false);
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_2.toString(), false);
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_3.toString(), false);
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_4.toString(), false);
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_5.toString(), false);
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_6.toString(), false);
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_7.toString(), false);
+        moduleStatistics.put(DSInSAModuleTerm.MODULE_8.toString(), false);
+
+        return moduleStatistics;
+    }
+
+    private Map<String, ModuleStatistics> getDefaultModuleStatistics() {
+        ModuleStatistics statistics = new ModuleStatistics() {{
+            setId(DSInSAModuleTerm.MODULE_1.toString());
+            setQuestions(Collections.singletonList(new TestOfModule() {{
+                setTextOfQuestion("Текст вопроса 1");
+                setAnswerOptions(Arrays.asList("Вариант 1", "Вариант 2", "Вариант 3", "Вариант 4"));
+                setCorrectAnswer("Вариант 4");
+            }}));
+            setUserResponses(Collections.singletonList("Вариант 4"));
+            setFlags(Collections.singletonList(true));
+        }};
+
+        return Collections.singletonMap(DSInSAModuleTerm.MODULE_1.toString(), statistics);
     }
 }

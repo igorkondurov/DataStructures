@@ -20,8 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,7 +67,7 @@ public class SettingsPresenterImpl implements SettingsPresenter {
             }
         };
 
-        users.child(firebaseAuth.getCurrentUser().getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).addListenerForSingleValueEvent(valueEventListener);
+        users.child(firebaseAuth.getCurrentUser().getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User").addListenerForSingleValueEvent(valueEventListener);
     }
 
     /**
@@ -181,17 +179,17 @@ public class SettingsPresenterImpl implements SettingsPresenter {
                                         if (task.isSuccessful()) {
                                             LOGGER.log(Level.INFO, "Пользователь " + oldEmail
                                                     + " изменил адрес электронной почты на новый: " + newEmail + "!");
-                                            users.child(oldEmail.replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).addValueEventListener(new ValueEventListener() {
+                                            users.child(oldEmail.replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User").addValueEventListener(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     User oldUser = snapshot.getValue(User.class);
                                                     if (oldUser != null) {
                                                         oldUser.setEmail(newEmail);
-                                                        users.child(oldUser.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).setValue(oldUser);
+                                                        users.child(oldUser.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User").setValue(oldUser);
                                                         LOGGER.log(Level.INFO, "Пользователь " + oldUser.getEmail() + " был добавлен в базу!");
                                                     }
 
-                                                    //users.child(oldEmail.getText().toString().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).removeValue();
+                                                    //users.child(oldEmail.getText().toString().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User").removeValue();
                                                 }
 
                                                 @Override
@@ -259,10 +257,9 @@ public class SettingsPresenterImpl implements SettingsPresenter {
                         LOGGER.log(Level.INFO, "Повторная аутентификация пользователя " + user.getEmail());
 
                         if (data.getPhone().equals(oldPhone)) {
-                            users.child(firebaseAuth.getCurrentUser().getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""))
+                            users.child(firebaseAuth.getCurrentUser().getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User")
                                     .child("phone").setValue(newPhone);
                             LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " изменил свой номер телефона на новый: " + newPhone);
-                            settingsView.showSnackBarForDialog("Номер телефона успешно обновлен!", Snackbar.LENGTH_LONG);
                             settingsView.restartCurrentActivity();
                         } else {
                             LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " ввёл некорректные данные!");
@@ -283,9 +280,9 @@ public class SettingsPresenterImpl implements SettingsPresenter {
     public void editNameAndSurname(String name, String surname, User data) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""))
+        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User")
                 .child("name").setValue(name);
-        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""))
+        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User")
                 .child("surname").setValue(surname);
         LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " изменил свои персональные данные");
         settingsView.showSnackBarForDialog("Данные успешно изменены!", Snackbar.LENGTH_LONG);
@@ -295,7 +292,7 @@ public class SettingsPresenterImpl implements SettingsPresenter {
     public void editSexOfAPerson(String sexOfAPerson, User data) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""))
+        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User")
                 .child("sexOfAPerson").setValue(sexOfAPerson);
         LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " изменил свои персональные данные (Пол)");
         settingsView.showSnackBarForDialog("Данные успешно изменены!", Snackbar.LENGTH_LONG);
@@ -305,7 +302,7 @@ public class SettingsPresenterImpl implements SettingsPresenter {
     public void editDateOfBirthday(String dateOfBirthday, User data) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""))
+        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User")
                 .child("dateOfBirth").setValue(dateOfBirthday);
         LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " изменил свои персональные данные (Дата рождения)");
         settingsView.showSnackBarForDialog("Данные успешно изменены!", Snackbar.LENGTH_LONG);
@@ -315,7 +312,7 @@ public class SettingsPresenterImpl implements SettingsPresenter {
     public void editCategory(String fieldOfActivity, User data) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""))
+        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User")
                 .child("fieldOfActivity").setValue(fieldOfActivity);
         LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " изменил сферу деятельности/ категорию");
         settingsView.showSnackBarForDialog("Данные успешно изменены!", Snackbar.LENGTH_LONG);
@@ -325,22 +322,9 @@ public class SettingsPresenterImpl implements SettingsPresenter {
     public void editInterests(List<String> interests, User data) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", ""))
+        users.child(user.getEmail().replaceAll("[^\\da-zA-Za-яёА-ЯЁ]", "")).child("User")
                 .child("interests").setValue(interests);
         LOGGER.log(Level.INFO, "Пользователь " + user.getEmail() + " изменил интересы");
         settingsView.showSnackBarForDialog("Данные успешно изменены!", Snackbar.LENGTH_LONG);
-    }
-
-    private User setDefaultDataForUser() {
-        return new User() {{
-            setId(users.getKey());
-            setPhone("88005004545");
-            setName("Имя");
-            setSurname("Фамилия");
-            setDateOfBirth(new Date().toString());
-            setSexOfAPerson("Не указано");
-            setFieldOfActivity("Не указано");
-            setInterests(Collections.singletonList("Не указано"));
-        }};
     }
 }

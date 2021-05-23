@@ -18,7 +18,7 @@ public interface MainPresenter {
     public boolean checkFields(String email, String password, String name, String phone);
 
     /**
-     * Создание документа пользователя в коллекции Firebase
+     * Создание документов пользователя в коллекции Firebase
      *
      * @param email    почта
      * @param password пароль

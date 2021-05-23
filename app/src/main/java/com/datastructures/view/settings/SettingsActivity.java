@@ -226,6 +226,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
                 }
 
                 settingsPresenter.editPhone(password.getText().toString(), oldPhone.getText().toString(), newPhone.getText().toString(), data);
+                showSnackBarForDialog("Номер телефона успешно обновлен!", Snackbar.LENGTH_LONG);
             }
         });
 
@@ -443,7 +444,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
 
     @Override
     @Deprecated
-    public void updateEMail(User data) {
+    public void updateEmail(User data) {
         AlertDialog.Builder dialog = getAlertDialog("Изменить почту",
                 "Пожалуйста, заполните форму!");
         View registerWindow = getViewForDialog(R.layout.edit_email);
